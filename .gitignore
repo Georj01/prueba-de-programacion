@@ -1,0 +1,83 @@
+# Compilados y archivos objeto
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Ejecutables
+*.exe
+*.out
+*.app
+TicTacToe
+TicTacToe-GUI
+TicTacToe.exe
+TicTacToe-GUI.exe
+
+# Directorios de build
+/build/
+/cmake-build-*/
+/dist/
+/bin/
+/lib/
+
+# Archivos de Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+Debug/
+Release/
+
+# Archivos de Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Archivos de CLion
+.idea/
+cmake-build-debug/
+cmake-build-release/
+*.iml
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Archivos de editor
+*~
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.asm
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Dependencies SFML (si las instalas localmente)
+/SFML/
+/sfml-*/
+
+# Archivos de logging
+*.log
+
+# Python (en caso de usar scripts auxiliares)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
