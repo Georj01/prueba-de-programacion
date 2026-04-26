@@ -1,0 +1,149 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        compiler: [g++, clang++]
+        exclude:
+          # MSVC en Windows
+          - os: windows-latest
+            compiler: clang++
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up environment (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    - name: Set up environment (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        brew install cmake
+
+    - name: Set up environment (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Create build directory
+      run: |
+        mkdir build
+        cd build
+
+    - name: Configure with CMake (Unix)
+      if: runner.os != 'Windows'
+      run: |
+        cd build
+        cmake .. -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+
+    - name: Configure with CMake (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cd build
+        cmake ..
+
+    - name: Build Console Version
+      run: |
+        cd build
+        cmake --build . --config Release --target TicTacToe
+
+    - name: Run Console Game (Automated Test)
+      run: |
+        cd build
+        if [ "$RUNNER_OS" = "Windows" ]; then
+          ./bin/TicTacToe.exe < ../tests/input.txt || true
+        else
+          ./bin/TicTacToe < ../tests/input.txt || true
+        fi
+      shell: bash
+
+    - name: Verify Executable was Created
+      run: |
+        cd build
+        if [ "$RUNNER_OS" = "Windows" ]; then
+          if [ ! -f ./bin/TicTacToe.exe ]; then
+            echo "ERROR: Executable not found!"
+            exit 1
+          fi
+        else
+          if [ ! -f ./bin/TicTacToe ]; then
+            echo "ERROR: Executable not found!"
+            exit 1
+          fi
+        fi
+      shell: bash
+
+    - name: Upload Artifacts (Console)
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: TicTacToe-${{ matrix.os }}-${{ matrix.compiler }}
+        path: |
+          build/bin/TicTacToe*
+          !build/bin/**/*.a
+          !build/bin/**/*.lib
+
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    
+    permissions:
+      security-events: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'cpp'
+
+    - name: Set up build environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+
+  format-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install clang-format
+      run: sudo apt-get install -y clang-format
+
+    - name: Check code formatting
+      run: |
+        for file in *.cpp *.h; do
+          if [ -f "$file" ]; then
+            clang-format -i "$file"
+          fi
+        done
+        if git diff --quiet; then
+          echo "Code formatting is correct!"
+        else
+          echo "Code needs formatting. Run: clang-format -i *.cpp *.h"
+          git diff
+          exit 1
+        fi
