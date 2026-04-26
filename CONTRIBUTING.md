@@ -1,109 +1,109 @@
 # Contributing to Tic Tac Toe Game
 
-¡Gracias por tu interés en contribuir! Las contribuciones son muy bienvenidas.
+Thank you for your interest in contributing! Contributions are very welcome.
 
-## Cómo Contribuir
+## How to Contribute
 
-### Reportar Bugs
+### Report Bugs
 
-Si encuentras un bug, por favor crea un **Issue** describiendo:
-- Qué hiciste
-- Qué pasó
-- Qué esperabas que pasara
-- Tu sistema operativo y versión de C++
+If you find a bug, please create an **Issue** describing:
+- What you did
+- What happened
+- What you expected to happen
+- Your operating system and C++ version
 
-### Sugerir Mejoras
+### Suggest Improvements
 
-¿Tienes una idea para mejorar el proyecto? Abre un **Issue** con la etiqueta `enhancement` explicando:
-- La mejora propuesta
-- Por qué sería útil
-- Ejemplos de cómo funcionaría
+Have an idea to improve the project? Open an **Issue** with the `enhancement` label explaining:
+- The proposed improvement
+- Why it would be useful
+- Examples of how it would work
 
-### Crear un Pull Request
+### Create a Pull Request
 
-1. **Fork** el repositorio
-2. **Crea una rama** para tu característica:
+1. **Fork** the repository
+2. **Create a branch** for your feature:
    ```bash
-   git checkout -b feature/tu-caracteristica
+   git checkout -b feature/your-feature-name
    ```
-3. **Realiza tus cambios** y escribe código limpio
-4. **Prueba tu código**:
+3. **Make your changes** and write clean code
+4. **Test your code**:
    ```bash
    g++ -std=c++11 -o TicTacToe main.cpp TicTacToe.cpp
    ./TicTacToe
    ```
-5. **Haz commit** con mensajes claros:
+5. **Make commits** with clear messages:
    ```bash
-   git commit -m "Add: descripción de lo que agregaste"
-   git commit -m "Fix: descripción del bug que arreglaste"
+   git commit -m "Add: description of what you added"
+   git commit -m "Fix: description of the bug you fixed"
    ```
-6. **Push** a tu fork:
+6. **Push** to your fork:
    ```bash
-   git push origin feature/tu-caracteristica
+   git push origin feature/your-feature-name
    ```
-7. **Abre un Pull Request** describiendo qué cambios hiciste
+7. **Open a Pull Request** describing what changes you made
 
-## Guías de Estilo
+## Style Guides
 
-### Código C++
-- Usa **camelCase** para variables y funciones: `getWinner()`
-- Usa **PascalCase** para clases: `TicTacToe`
-- Comenta el código complejo
-- Mantén líneas menores a 80 caracteres
-- Usa espacios (2 o 4) para indentación, NO tabs
+### C++ Code
+- Use **camelCase** for variables and functions: `getWinner()`
+- Use **PascalCase** for classes: `TicTacToe`
+- Comment complex code
+- Keep lines under 80 characters
+- Use spaces (2 or 4) for indentation, NOT tabs
 
 ### Commits
-- Mensajes en inglés
-- Primera línea: máximo 50 caracteres
-- Si es necesario, agrega descripción después de una línea en blanco
-- Ejemplos:
+- Messages in English
+- First line: maximum 50 characters
+- If necessary, add description after a blank line
+- Examples:
   - `Add minimax optimization for AI`
   - `Fix: incorrect winner detection on diagonal`
   - `Refactor: simplify board evaluation logic`
 
-### Documentación
-- Comenta funciones públicas con Doxygen
-- Mantén README.md actualizado
-- Documenta cambios importantes en ALGORITHM_DOCUMENTATION.md
+### Documentation
+- Comment public functions with Doxygen style
+- Keep README.md updated
+- Document important changes in ALGORITHM_DOCUMENTATION.md
 
-## Áreas de Contribución
+## Contribution Areas
 
-### Fácil (para principiantes)
-- Mejorar documentación
-- Agregar comentarios al código
-- Corregir typos
-- Mejorar mensajes de error
+### Easy (for beginners)
+- Improve documentation
+- Add code comments
+- Fix typos
+- Improve error messages
 
-### Intermedia
-- Agregar validación de entrada mejorada
-- Optimizar algoritmo minimax
-- Agregar más comentarios sobre la IA
-- Mejorar interfaz de usuario
+### Intermediate
+- Add improved input validation
+- Optimize minimax algorithm
+- Add more AI comments
+- Improve user interface
 
-### Avanzada
-- Implementar dificultades (Easy, Medium, Hard)
+### Advanced
+- Implement difficulty levels (Easy, Medium, Hard)
 - Alpha-beta pruning
-- Interfaz gráfica mejorada
-- Tests unitarios
+- Enhanced GUI
+- Unit tests
 
-## Proceso de Review
+## Review Process
 
-1. Un mantenedor revisará tu PR
-2. Podría haber solicitudes de cambios
-3. Una vez aprobado, se hará merge
-4. ¡Tu contribución estará en el proyecto!
+1. A maintainer will review your PR
+2. There might be change requests
+3. Once approved, it will be merged
+4. Your contribution will be in the project!
 
-## Código de Conducta
+## Code of Conduct
 
-- Sé respetuoso con otros contribuidores
-- No hagas spam
-- Enfócate en el contenido, no en las personas
-- Ayuda a otros a aprender
+- Be respectful to other contributors
+- No spam
+- Focus on content, not people
+- Help others learn
 
-## Preguntas o Dudas
+## Questions or Doubts
 
-Si tienes preguntas, abre un **Discussion** o una **Issue** con la etiqueta `question`.
+If you have questions, open a **Discussion** or an **Issue** with the `question` label.
 
 ---
 
-¡Gracias por contribuir! 🎉
+Thank you for contributing! 🎉
