@@ -46,8 +46,9 @@ private:
 public:
     /**
      * @brief Constructor - initializes the game board
+     * @param humanIsX True if human plays as X (goes first), false if human plays as O
      */
-    TicTacToe();
+    TicTacToe(bool humanIsX = true);
 
     /**
      * @brief Displays the current state of the board

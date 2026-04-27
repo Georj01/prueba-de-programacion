@@ -55,26 +55,18 @@ void TicTacToeGUI::initializeColors() {
 /**
  * @brief Attempts to load a font for text rendering
  * 
- * If font loading fails, the program continues but text won't render properly.
- * This is a graceful degradation approach.
+ * Buscamos la fuente en una carpeta local relativa al ejecutable.
  */
 void TicTacToeGUI::loadFont() {
-    // Try multiple possible font locations on Windows
-    std::vector<std::string> fontPaths = {
-        "C:\\Windows\\Fonts\\arial.ttf",
-        "C:\\Windows\\Fonts\\segoeui.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  // Linux
-        "/Library/Fonts/Arial.ttf"                           // macOS
-    };
-    
-    for (const auto& path : fontPaths) {
-        if (font.loadFromFile(path)) {
-            fontLoaded = true;
-            return;
-        }
+    // Buscamos la fuente en una carpeta local relativa al ejecutable
+    if (font.loadFromFile("assets/font.ttf")) {
+        fontLoaded = true;
+        return;
     }
     
-    std::cerr << "Warning: Font could not be loaded. Text may not display correctly.\n";
+    // Si falla, avisamos por consola, pero aquí ya deberías 
+    // plantearte si arrancar la app sin texto tiene sentido.
+    std::cerr << "Error crítico de UX: No se encuentra 'assets/font.ttf'.\n";
     fontLoaded = false;
 }
 

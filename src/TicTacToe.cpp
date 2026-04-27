@@ -11,8 +11,19 @@
 /**
  * @brief Constructor - initializes a new game board (3x3 filled with 0s)
  */
-TicTacToe::TicTacToe() : humanPlayer(1), aiPlayer(2), currentPlayer(1) {
+TicTacToe::TicTacToe(bool humanIsX) {
     board.assign(3, std::vector<int>(3, 0));
+    
+    // El jugador 1 (X) siempre empieza en el Tres en Raya
+    currentPlayer = 1; 
+    
+    if (humanIsX) {
+        humanPlayer = 1;
+        aiPlayer = 2;
+    } else {
+        humanPlayer = 2;
+        aiPlayer = 1;
+    }
 }
 
 /**
