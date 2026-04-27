@@ -20,13 +20,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Common source files
 set(COMMON_SOURCES
-    TicTacToe.cpp
-    TicTacToe.h
+    src/TicTacToe.cpp
+    src/TicTacToe.h
 )
 
 # Console version executable
 set(CONSOLE_SOURCES
-    main.cpp
+    src/main.cpp
     ${COMMON_SOURCES}
 )
 
@@ -41,9 +41,9 @@ find_package(SFML 2.5 COMPONENTS graphics window system QUIET)
 if(SFML_FOUND)
     # GUI version executable
     set(GUI_SOURCES
-        main-gui.cpp
-        GUI.cpp
-        GUI.h
+        src/main-gui.cpp
+        src/GUI.cpp
+        src/GUI.h
         ${COMMON_SOURCES}
     )
     

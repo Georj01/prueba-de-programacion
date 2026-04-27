@@ -17,7 +17,7 @@ This is a complete implementation of the classic Tic Tac Toe (Three in a Row) ga
 - **Clear Board Display**: ASCII representation of the game board
 - **Keyboard Input**: Type numbers 1-9 to place marks
 
-### Graphical Version (NEW!)
+### Graphical Version
 - **Modern GUI**: Built with SFML (Simple and Fast Multimedia Library)
 - **Mouse Interaction**: Click directly on board cells
 - **Visual Marks**: Color-coded X (Red) and O (Blue) marks
@@ -29,56 +29,57 @@ This is a complete implementation of the classic Tic Tac Toe (Three in a Row) ga
 
 ```
 prueba-de-programación/
-├── Game Logic Files
-├── main.cpp                 # Console version entry point
-├── main-gui.cpp             # GUI version entry point
-├── TicTacToe.h              # Game logic class declaration
-├── TicTacToe.cpp            # Game logic implementation
-├── GUI.h                    # Graphical interface declaration
-├── GUI.cpp                  # Graphical interface implementation
-├── CMakeLists.txt           # Build configuration
-├── Makefile                 # Traditional make build
-├── README.md                # This file
-├── GUI_BUILD_GUIDE.md       # SFML setup instructions
-├── COMPILATION_GUIDE.md     # Windows compilation guide
-├── ALGORITHM_DOCUMENTATION.md  # Minimax algorithm details
-└── PROJECT_SUMMARY.md       # Project overview
+├── src/                    # Source code
+│   ├── main.cpp            # Console entry point
+│   ├── main-gui.cpp        # GUI entry point
+│   ├── TicTacToe.h         # Game logic declaration
+│   ├── TicTacToe.cpp       # Game logic implementation
+│   ├── GUI.h               # GUI declaration
+│   └── GUI.cpp             # GUI implementation
+├── tests/                  # Tests and data
+│   └── input.txt           # Test input
+├── docs/                   # Documentation
+│   └── ALGORITHM_DOCUMENTATION.md
+├── CMakeLists.txt          # Build configuration
+├── README.md               # This file
+├── CONTRIBUTING.md         # Contribution guidelines
+└── LICENSE                 # License
 ```
 
 ## File Descriptions
 
-### Game Core (Shared by Both Versions)
+### Game Core
 
-**TicTacToe.h**
+**src/TicTacToe.h**
 - Header file with game logic class declaration
 - Defines the `TicTacToe` class interface
-- Documents all public methods and functions
+- Documents all public methods
 
-**TicTacToe.cpp**
+**src/TicTacToe.cpp**
 - Implementation of the `TicTacToe` class
 - Contains the minimax algorithm for AI
 - Implements board management and game state evaluation
 
 ### Console Version
 
-**main.cpp**
+**src/main.cpp**
 - Entry point for console application
 - Contains game loop and text-based user interface
 - Handles keyboard input and menu navigation
 - Displays game board using ASCII characters
 
-### Graphical Version (NEW!)
+### Graphical Version
 
-**main-gui.cpp**
+**src/main-gui.cpp**
 - Entry point for GUI application
 - Initializes game and passes it to GUI renderer
 
-**GUI.h**
+**src/GUI.h**
 - Header file for graphical interface class
 - Defines `TicTacToeGUI` class using SFML library
 - Documents all rendering and input handling methods
 
-**GUI.cpp**
+**src/GUI.cpp**
 - Implementation of graphical interface
 - Handles SFML rendering, window management, and events
 - Draws game board, marks, and status information
@@ -92,63 +93,97 @@ prueba-de-programación/
 - Automatically detects and links SFML if available
 - Builds both console and GUI versions
 
-**Makefile**
-- Traditional Unix make build script
-- Alternative to CMake for simple compilation
-
 ### Documentation
 
 **README.md** (this file)
 - Complete project overview and usage guide
 
-**GUI_BUILD_GUIDE.md** (NEW!)
-- Instructions for installing SFML
-- Platform-specific build procedures
-- Troubleshooting guide
-
-**COMPILATION_GUIDE.md**
-- Detailed Windows compilation instructions
-- Multiple compilation methods
-
-**ALGORITHM_DOCUMENTATION.md**
+**docs/ALGORITHM_DOCUMENTATION.md**
 - Technical explanation of minimax algorithm
 - Game theory background
-- Performance analysis
+- Performance analysis and optimizations
 
-**PROJECT_SUMMARY.md**
-- Project statistics and highlights
-- Feature matrix and comparisons
+## Quick Start
 
-## Compilation
+### Console Version (Windows)
 
-### Quick Start (Console Version)
-
-**Windows (Command Prompt)**
 ```cmd
 cd C:\Users\Jorge\Documents\GitHub\prueba-de-programación
-g++ -std=c++11 -o TicTacToe main.cpp TicTacToe.cpp
+mkdir build
+cd build
+cmake ..
+cmake --build .
+bin\TicTacToe.exe
+```
+
+### Console Version (Linux/macOS)
+
+```bash
+cd ~/path/to/prueba-de-programación
+mkdir build
+cd build
+cmake ..
+cmake --build .
+./bin/TicTacToe
+```
+
+### Direct Compilation (All Platforms)
+
+**Console version only:**
+```cmd
+g++ -std=c++11 -o TicTacToe src/main.cpp src/TicTacToe.cpp
 TicTacToe.exe
 ```
 
-**Linux/macOS (Terminal)**
-```bash
-cd ~/path/to/prueba-de-programación
-g++ -std=c++11 -o TicTacToe main.cpp TicTacToe.cpp
-./TicTacToe
-```
+## Compilation Guide
 
-### Building Both Versions with CMake
-
-#### Prerequisites
+### Prerequisites
 - **C++ Compiler**: g++, MSVC, or Clang (C++11 or later)
 - **CMake**: Version 3.10 or higher
-- **SFML** (optional, for GUI): See GUI_BUILD_GUIDE.md for installation
+- **SFML** (optional, for GUI): See GUI Installation below
 
-#### Build Steps
+### Using Visual Studio with CMake (Recommended)
+
+1. **Open the project folder in Visual Studio**
+   - File → Open → Folder
+   - Navigate to: `C:\Users\Jorge\Documents\GitHub\prueba-de-programación`
+
+2. **Configure CMake**
+   - Visual Studio will automatically detect CMakeLists.txt
+   - A notification bar will appear asking to configure the project
+   - Click "Yes" or go to: Project → Configure TicTacToe
+
+3. **Build the project**
+   - Build → Build All (Ctrl+Shift+B)
+   - Or right-click on CMakeLists.txt → Build
+
+4. **Run the executable**
+   - Build → Run Local Debugger (F5)
+   - Or navigate to the build folder and run TicTacToe.exe
+
+### Using MinGW (g++) with Command Line
+
+1. **Install MinGW** (if not already installed)
+   - Download from: https://sourceforge.net/projects/mingw/
+   - Install components: mingw32-base-bin, mingw32-gcc-g++-bin, mingw32-make-bin
+   - Add `C:\MinGW\bin` to your PATH
+
+2. **Compile**
+   ```cmd
+   cd C:\Users\Jorge\Documents\GitHub\prueba-de-programación
+   g++ -std=c++11 -o TicTacToe src/main.cpp src/TicTacToe.cpp
+   ```
+
+3. **Run**
+   ```cmd
+   TicTacToe.exe
+   ```
+
+### Using CMake (Cross-Platform)
 
 ```bash
 # Navigate to project
-cd prueba-de-programación
+cd C:\Users\Jorge\Documents\GitHub\prueba-de-programación
 
 # Create build directory
 mkdir build
@@ -157,199 +192,136 @@ cd build
 # Generate build files
 cmake ..
 
-# Compile
+# Build
 cmake --build .
 
-# Result: Both TicTacToe and TicTacToe-GUI executables
+# Run (Windows)
+bin\TicTacToe.exe
+
+# Run (Linux/macOS)
+./bin/TicTacToe
 ```
 
-#### Console Version Only
+### Using WSL (Windows Subsystem for Linux)
 
-```bash
-cd build
-./bin/TicTacToe          # Linux/macOS
-bin\TicTacToe.exe        # Windows
+1. **Open PowerShell as Administrator**
+   ```powershell
+   wsl --install
+   ```
+
+2. **Setup build tools in WSL**
+   ```bash
+   sudo apt update
+   sudo apt install build-essential cmake
+   ```
+
+3. **Compile in WSL**
+   ```bash
+   cd /mnt/c/Users/Jorge/Documents/GitHub/prueba-de-programación
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build .
+   ./bin/TicTacToe
+   ```
+
+## GUI Installation
+
+### SFML Installation
+
+#### Windows
+
+**Using vcpkg (Recommended):**
+```cmd
+# Clone vcpkg
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+.\bootstrap-vcpkg.bat
+
+# Install SFML
+.\vcpkg install sfml:x64-windows
+
+# Integrate with CMake
+.\vcpkg integrate install
 ```
 
-#### GUI Version
-
-For GUI version, first **install SFML** (see GUI_BUILD_GUIDE.md), then:
-
-```bash
-cd build
-./bin/TicTacToe-GUI      # Linux/macOS
-bin\TicTacToe-GUI.exe    # Windows
+**Using Chocolatey:**
+```cmd
+choco install sfml
 ```
 
-### Manual Compilation with g++
+**Manual Installation:**
+1. Download SFML from: https://www.sfml-dev.org/download.php
+2. Extract to `C:\SFML`
+3. Add to System PATH: `C:\SFML\lib`
+
+#### Linux (Ubuntu/Debian)
 
 ```bash
-cd prueba-de-programación
-g++ -std=c++11 -o TicTacToe main.cpp TicTacToe.cpp
-./TicTacToe
+sudo apt-get update
+sudo apt-get install libsfml-dev
 ```
 
-#### Using Visual Studio (Windows)
+#### Linux (Fedora/RHEL)
 
 ```bash
-# In the project directory
+sudo dnf install SFML-devel
+```
+
+#### macOS
+
+```bash
+brew install sfml
+```
+
+### Building GUI Version
+
+Once SFML is installed, the CMake build will automatically detect it and build both versions:
+
+```bash
 mkdir build
 cd build
 cmake ..
+cmake --build .
 
-# This generates Visual Studio project files
-# Open the generated .sln file in Visual Studio and build
+# Run GUI version
+bin\TicTacToe-GUI.exe  # Windows
+./bin/TicTacToe-GUI    # Linux/macOS
 ```
 
-## How to Play
+### GUI Controls
 
-### Game Rules
+| Action | Key/Mouse |
+|--------|-----------|
+| Place Mark | Click on cell |
+| New Game | Press SPACE |
+| Close Game | Click window X or Alt+F4 |
 
-1. **Players**: You play as 'X' and the AI plays as 'O'
-2. **Board**: The game board consists of a 3x3 grid with positions numbered 1-9:
-   ```
-   1 | 2 | 3
-   ---------
-   4 | 5 | 6
-   ---------
-   7 | 8 | 9
-   ```
+### GUI Features
 
-3. **Objective**: Be the first to get three of your marks in a row (horizontal, vertical, or diagonal)
-4. **Gameplay**: 
-   - Enter a number (1-9) to place your mark at that position
-   - The AI will then make its move
-   - The game continues until there is a winner or the board is full (draw)
+✅ **Interactive Board** - Click on cells to place your mark
+✅ **Real-time Rendering** - Smooth 60 FPS graphics
+✅ **Visual Feedback** - Color-coded marks (Red X, Blue O)
+✅ **Status Display** - Clear messages about game state
+✅ **Game Over Screen** - Beautiful end-game display
+✅ **Play Again** - Press SPACE to restart instantly
 
-### Strategy Tips
+### GUI Troubleshooting
 
-- The center (position 5) is often a strategic starting position
-- Corners are valuable for blocking diagonal wins
-- The AI uses optimal play, so draw is the best you can achieve
+**Problem: "SFML not found" during CMake**
+```cmd
+# With vcpkg toolchain
+cmake .. -DCMAKE_TOOLCHAIN_FILE=C:\path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 
-## Algorithm Explanation
-
-### Minimax Algorithm
-
-The AI uses the **Minimax algorithm**, a decision-making algorithm that:
-
-1. **Recursively explores** all possible future game states
-2. **Evaluates terminal states**: Assigns +10 for AI win, -10 for human win, 0 for draw
-3. **Maximizes** when it's the AI's turn (choosing the highest score)
-4. **Minimizes** when it's the human's turn (choosing the lowest score from the AI's perspective)
-5. **Selects** the move that leads to the best outcome
-
-**Depth-Based Optimization**: The algorithm prefers faster wins and delays losses by adjusting scores based on recursion depth.
-
-### Time Complexity
-
-- **Worst case**: O(9!) - explores all possible game states
-- **Average case**: Much faster due to early game termination and pruning
-
-## Code Documentation
-
-The entire codebase includes:
-- **Doxygen-style comments** for comprehensive documentation
-- **Function documentation** with parameter and return value descriptions
-- **Class documentation** explaining purpose and design
-- **Algorithm explanation** within the code
-
-## Example Game Session
-
-```
-═══════════════════════════════════════════
-   TIC TAC TOE GAME IN C++
-═══════════════════════════════════════════
-
-╔════════════════════════════════╗
-║     TIC TAC TOE - MAIN MENU    ║
-╚════════════════════════════════╝
-
-1. Play New Game
-2. Instructions
-3. Exit
-
-Select an option (1-3): 1
-
-╔════════════════════════════════╗
-║   Welcome to TIC TAC TOE!      ║
-║   You are X, AI is O           ║
-╚════════════════════════════════╝
-
-     |     |     
-  1  |  2  |  3  
------------+-----------+-----------
-  4  |  5  |  6  
------------+-----------+-----------
-  7  |  8  |  9  
-     |     |     
-
-Enter your move (1-9): 5
-
-     |     |     
-  1  |  2  |  3  
------------+-----------+-----------
-  4  |  X  |  6  
------------+-----------+-----------
-  7  |  8  |  9  
-     |     |     
-
-AI is thinking...
-
-     |     |     
-  1  |  O  |  3  
------------+-----------+-----------
-  4  |  X  |  6  
------------+-----------+-----------
-  7  |  8  |  9  
-     |     |     
-
-... (game continues)
+# Or manual SFML path
+cmake .. -DSFML_DIR="C:\SFML\lib\cmake\SFML"
 ```
 
-## Possible Improvements
+**Problem: Linker errors or DLL not found**
+- Ensure correct SFML version for your architecture (64-bit recommended)
+- Add SFML bin directory to PATH: `C:\SFML\bin`
 
-- Add difficulty levels (Easy, Medium, Hard)
-- Implement alpha-beta pruning for faster computation
-- Add GUI with graphical board
-- Support two-player mode (no AI)
-- Add game statistics and score tracking
-- Implement opening book for faster AI moves
-- Add undo/redo functionality
+**Problem: Window doesn't open**
+- Check that graphics drivers are updated
+- Verify system supports OpenGL 1.4+
 
-## System Requirements
-
-- **OS**: Windows, macOS, Linux
-- **C++ Standard**: C++11 or higher
-- **Memory**: Minimal (less than 1 MB)
-- **CPU**: Any modern processor
-
-## License
-
-This project is provided as-is for educational and recreational purposes.
-
-## Author
-
-Jorge
-
-## Version
-
-1.0 - Initial release
-
-## Support & Troubleshooting
-
-### Q: The AI seems slow on the first move
-A: The first move computation explores many possibilities. This is normal and the AI settles on the center as optimal.
-
-### Q: The program won't compile
-A: Ensure you have:
-- A C++11 compatible compiler
-- CMake installed (if using CMake)
-- All three source files (main.cpp, TicTacToe.h, TicTacToe.cpp) in the same directory
-
-### Q: Can I beat the AI?
-A: The AI is unbeatable when it goes first and should only be drawable when you go first and play optimally.
-
----
-
-**Enjoy the game!**
