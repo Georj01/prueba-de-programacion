@@ -19,11 +19,13 @@ TicTacToeGUI::TicTacToeGUI(TicTacToe& gameReference)
              "Tic Tac Toe - AI Game"),
       game(gameReference),
       fontLoaded(false),
-      gameRunning(true),
+      gameRunning(false),
       gameOver(false),
       gameResult(0),
       aiThinking(false),
-      moveCounter(0) {
+      moveCounter(0),
+      inMenu(true),
+      humanWantsToBeX(true) {
     
     window.setFramerateLimit(60);
     initializeColors();
@@ -319,8 +321,13 @@ void TicTacToeGUI::run() {
                 
                 case sf::Event::MouseButtonPressed:
                     if (event.mouseButton.button == sf::Mouse::Left) {
-                        handleMouseClick(static_cast<float>(event.mouseButton.x),
-                                       static_cast<float>(event.mouseButton.y));
+                        if (inMenu) {
+                            handleMenuClick(static_cast<float>(event.mouseButton.x),
+                                            static_cast<float>(event.mouseButton.y));
+                        } else {
+                            handleMouseClick(static_cast<float>(event.mouseButton.x),
+                                             static_cast<float>(event.mouseButton.y));
+                        }
                     }
                     break;
                 
@@ -350,12 +357,16 @@ void TicTacToeGUI::run() {
         // Render
         window.clear(backgroundColor);
         
-        drawBoard();
-        drawMarks();
-        drawUI();
-        
-        if (gameOver) {
-            drawGameOverScreen();
+        if (inMenu) {
+            drawMenu();
+        } else {
+            drawBoard();
+            drawMarks();
+            drawUI();
+            
+            if (gameOver) {
+                drawGameOverScreen();
+            }
         }
         
         window.display();
@@ -374,8 +385,8 @@ bool TicTacToeGUI::isRunning() const {
  * @brief Resets the game for a new round
  */
 void TicTacToeGUI::newGame() {
-    game.resetGame();
-    gameRunning = true;
+    inMenu = true;
+    gameRunning = false;
     gameOver = false;
     gameResult = 0;
     aiThinking = false;

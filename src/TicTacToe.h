@@ -90,8 +90,9 @@ public:
 
     /**
      * @brief Resets the game board for a new game
+     * @param humanIsX True if human plays as X (goes first), false if human plays as O
      */
-    void resetGame();
+    void resetGame(bool humanIsX = true);
 
     /**
      * @brief Gets the mark at a specific board position

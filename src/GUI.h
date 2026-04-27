@@ -51,6 +51,8 @@ private:
     int gameResult;                   ///< 0: ongoing, 1: human wins, 2: AI wins, 3: draw
     bool aiThinking;                  ///< Whether AI is computing its move
     int moveCounter;                  ///< Counter for smooth animations
+    bool inMenu;                      ///< Whether player is in menu choosing role
+    bool humanWantsToBeX;             ///< Whether human chose to play as X
     
     // Cell states for animation
     std::array<std::array<int, 3>, 3> lastBoardState;  ///< Previous board state for change detection
@@ -103,11 +105,23 @@ private:
     void getPositionFromMouse(float mouseX, float mouseY, int& row, int& col);
 
     /**
-     * @brief Handles mouse click events
+     * @brief Handles mouse click events on the game board
      * @param mouseX X coordinate of click
      * @param mouseY Y coordinate of click
      */
     void handleMouseClick(float mouseX, float mouseY);
+
+    /**
+     * @brief Draws the menu for role selection
+     */
+    void drawMenu();
+
+    /**
+     * @brief Handles mouse click events on the menu
+     * @param mouseX X coordinate of click
+     * @param mouseY Y coordinate of click
+     */
+    void handleMenuClick(float mouseX, float mouseY);
 
     /**
      * @brief Draws a text element

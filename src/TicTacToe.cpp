@@ -255,15 +255,25 @@ int TicTacToe::checkGameState() {
 /**
  * @brief Resets the game board for a new game
  * 
- * Clears all cells and resets the current player to human (1)
+ * Clears all cells and resets roles based on player choice
  */
-void TicTacToe::resetGame() {
+void TicTacToe::resetGame(bool humanIsX) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             board[i][j] = 0;
         }
     }
-    currentPlayer = humanPlayer;
+    
+    // El jugador 1 (X) siempre empieza en el Tres en Raya
+    currentPlayer = 1;
+    
+    if (humanIsX) {
+        humanPlayer = 1;
+        aiPlayer = 2;
+    } else {
+        humanPlayer = 2;
+        aiPlayer = 1;
+    }
 }
 
 /**
