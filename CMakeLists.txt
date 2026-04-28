@@ -1,16 +1,3 @@
-/**
- * CMakeLists.txt
- * Build configuration for the Tic Tac Toe game
- * 
- * Supports both console and graphical versions
- * 
- * Usage:
- *   mkdir build
- *   cd build
- *   cmake ..
- *   cmake --build .
- */
-
 cmake_minimum_required(VERSION 3.10)
 project(TicTacToe)
 
