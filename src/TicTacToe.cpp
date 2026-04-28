@@ -11,7 +11,7 @@
 /**
  * @brief Constructor - initializes a new game board (3x3 filled with 0s)
  */
-TicTacToe::TicTacToe(bool humanIsX) {
+TicTacToe::TicTacToe(bool humanIsX) : humanWins(0), aiWins(0), draws(0) {
     board.assign(3, std::vector<int>(3, 0));
     
     // El jugador 1 (X) siempre empieza en el Tres en Raya
@@ -162,7 +162,7 @@ int TicTacToe::evaluate() {
  * @param isMaximizing True when evaluating AI move (maximizing), false for human (minimizing)
  * @return The minimax score for this game state
  */
-int TicTacToe::minimax(int depth, bool isMaximizing) {
+int TicTacToe::minimax(int depth, bool isMaximizing, int alpha, int beta) {
     int score = evaluate();
     
     // Terminal states: AI wins, Human wins, or board full
@@ -177,11 +177,14 @@ int TicTacToe::minimax(int depth, bool isMaximizing) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == 0) {
                     board[i][j] = aiPlayer;
-                    int currentScore = minimax(depth + 1, false);
+                    int currentScore = minimax(depth + 1, false, alpha, beta);
                     board[i][j] = 0;
                     bestScore = std::max(bestScore, currentScore);
+                    alpha = std::max(alpha, bestScore);
+                    if (beta <= alpha) break; // Alpha-beta pruning
                 }
             }
+            if (beta <= alpha) break;
         }
         return bestScore;
     } else {
@@ -191,11 +194,14 @@ int TicTacToe::minimax(int depth, bool isMaximizing) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == 0) {
                     board[i][j] = humanPlayer;
-                    int currentScore = minimax(depth + 1, true);
+                    int currentScore = minimax(depth + 1, true, alpha, beta);
                     board[i][j] = 0;
                     bestScore = std::min(bestScore, currentScore);
+                    beta = std::min(beta, bestScore);
+                    if (beta <= alpha) break; // Alpha-beta pruning
                 }
             }
+            if (beta <= alpha) break;
         }
         return bestScore;
     }
@@ -215,7 +221,7 @@ void TicTacToe::makeAIMove() {
         for (int j = 0; j < 3; j++) {
             if (board[i][j] == 0) {
                 board[i][j] = aiPlayer;
-                int score = minimax(0, false);
+                int score = minimax(0, false, -1000, 1000);
                 board[i][j] = 0;
                 
                 if (score > bestScore) {
@@ -287,4 +293,22 @@ int TicTacToe::getCell(int row, int col) const {
         return 0;
     }
     return board[row][col];
+}
+
+int TicTacToe::getHumanWins() const {
+    return humanWins;
+}
+
+int TicTacToe::getAIWins() const {
+    return aiWins;
+}
+
+int TicTacToe::getDraws() const {
+    return draws;
+}
+
+void TicTacToe::recordResult(int result) {
+    if (result == 1) humanWins++;
+    else if (result == 2) aiWins++;
+    else if (result == 3) draws++;
 }

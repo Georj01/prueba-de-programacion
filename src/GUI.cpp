@@ -208,6 +208,12 @@ void TicTacToeGUI::drawUI() {
     // Title
     drawText("TIC TAC TOE", WINDOW_WIDTH / 2, 20, 40, sf::Color::Yellow, true);
     
+    // Score
+    std::string scoreText = "Human: " + std::to_string(game.getHumanWins()) + 
+                            "  |  Draws: " + std::to_string(game.getDraws()) + 
+                            "  |  AI: " + std::to_string(game.getAIWins());
+    drawText(scoreText, WINDOW_WIDTH / 2, 65, 18, sf::Color::White, true);
+    
     // Status text
     if (gameOver) {
         if (gameResult == 1) {
@@ -302,6 +308,7 @@ void TicTacToeGUI::handleMouseClick(float mouseX, float mouseY) {
         } else {
             // Game over
             gameOver = true;
+            game.recordResult(gameResult);
         }
     }
 }
@@ -349,6 +356,7 @@ void TicTacToeGUI::run() {
             
             if (gameResult != 0) {
                 gameOver = true;
+                game.recordResult(gameResult);
             }
             
             aiThinking = false;

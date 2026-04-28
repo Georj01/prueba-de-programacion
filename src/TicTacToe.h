@@ -28,6 +28,9 @@ private:
     int humanPlayer;                      ///< Value representing human player (1)
     int aiPlayer;                         ///< Value representing AI player (2)
     int currentPlayer;                    ///< Current turn (1 or 2)
+    int humanWins;                        ///< Number of human wins
+    int aiWins;                           ///< Number of AI wins
+    int draws;                            ///< Number of draws
 
     /**
      * @brief Evaluates the current board state
@@ -36,12 +39,14 @@ private:
     int evaluate();
 
     /**
-     * @brief Minimax algorithm for optimal AI moves
+     * @brief Minimax algorithm with alpha-beta pruning
      * @param depth Current search depth in the game tree
      * @param isMaximizing True if maximizing player's turn, false for minimizing
+     * @param alpha Best already explored option along path to the root for maximizer
+     * @param beta Best already explored option along path to the root for minimizer
      * @return Best score for the current position
      */
-    int minimax(int depth, bool isMaximizing);
+    int minimax(int depth, bool isMaximizing, int alpha = -1000, int beta = 1000);
 
 public:
     /**
@@ -101,6 +106,27 @@ public:
      * @return 0 if empty, 1 if human player, 2 if AI player
      */
     int getCell(int row, int col) const;
+
+    /**
+     * @brief Gets the number of human wins
+     */
+    int getHumanWins() const;
+
+    /**
+     * @brief Gets the number of AI wins
+     */
+    int getAIWins() const;
+
+    /**
+     * @brief Gets the number of draws
+     */
+    int getDraws() const;
+
+    /**
+     * @brief Records the result of a finished game
+     * @param result 1 for human win, 2 for AI win, 3 for draw
+     */
+    void recordResult(int result);
 };
 
 #endif // TICTACTOE_H
